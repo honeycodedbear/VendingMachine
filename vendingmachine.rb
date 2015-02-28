@@ -1,24 +1,23 @@
 require './slot'
-require './register'
 
 class VendingMachine
-  attr_accessor :slots, :register, :item_count, :user_credit, :user_debt
-  def initialize(slots)
-    @register = Register.new()
-    #@slots = [] #no defined system so it will be built dynamically
+  attr_accessor :slots, :item_count, :user_credit, :user_debt, :cash, :queue
+  def initialize(slots, starting_cash)
+    @cash = starting_cash
     #Already using a hash to initialize the grid why not use that as my data structure
     @slots = {}
     slots.each do |key, value|
       @slots[key] = Slot.new(value)
     end
     @item_count = {} #no idea what the items are named so i will use a hash
+    @queue = []
   end
   def add_load(new_load)
     new_load.each do |key,value|
       if value.class == [].class
         value.each do |ele|
           @slots[key].addItem ele
-          item_count[ele] ||= 0
+          item_count[ele] ||= 0 #checks if that item already existed if is nil it will initialize
           item_count[ele] += 1
         end
       else #to handle hashes that don't pass arrary or items
@@ -32,12 +31,35 @@ class VendingMachine
     @slots.map{|key,value|"#{key}=> #{value},\n"}.join
   end
 
-  def change
-    @user_credit - @user_debt
+  def user_insert_credit(new_credit)
+    @user_credit ||= 0.0
+    @user_credit += new_credit
+  end
+
+  def despense
+    if @user_credit > @user_debit
+      change = @user_credit - @user_debit
+      @user_credit = 0.0
+      @user_debit = 0.0
+      result = []
+      @queue.each do |ele|
+        result.push(@slot[ele].sellItem)
+      end
+      return [result, change]
+    else
+      return "Not enough funds"
+    end
   end
 
   def selection(coord)
+    coord = coord.to_sym if coord.class == "".class
+    #^^ to make sure it is a symbol not a string
     @user_debit ||= 0.0
-    @user_debit += @slots[coord].price
+    if @slots[coord].depth > 0
+      @queue.push coord
+      return "#{@user_debit += @slots[coord].price}"
+    else
+      return "Error Slot is empty!"
+    end
   end
 end
