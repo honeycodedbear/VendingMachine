@@ -1,6 +1,3 @@
-class Item
-  attr_accessor :name, :type
-end
 
 class Slot
   attr_accessor :items, :price
@@ -18,5 +15,8 @@ class Slot
   def sellItem
     #this pops off the first item
     @items.shift
+  end
+  def to_s #defining a new toString method so we can use it in the string Interpolation
+    "Price: #{price}, Depth: #{depth}, Items: #{@items}"
   end
 end
