@@ -13,7 +13,7 @@ $ ruby driver.rb
 
 <h3> Requirements </h3>
 <ul>
-  <li> Items can be candy, soda, snacks etc. </li>
+  <li> Items can be candy, soda, snacks etc. <ul><li> If I knew what pattern they would be in I'd consider objectifying them instead I stored them in an array of Strings called items for every Slot object. </li></ul></li>
   <li>Prices are 'by slot'. </li>
   <li>Keeps track of items, where they are stored in a grid based vending machine where each slot has a specific depth. </li>
   <li>Keeps track of $ in the system (ignore coins) </li>
