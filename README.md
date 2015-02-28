@@ -1,5 +1,16 @@
 <h1>Vending Machine</h1>
 
+<h3> How to Run </h3>
+Have Ruby installed on your machine.
+
+Windows: <a href="http://railsinstaller.org/en">http://railsinstaller.org/en</a>
+Mac: Should come pre installed
+Linux: sudo apt-get install ruby
+or whatever package manager works on your distro
+
+Then navigate to the containing folder with the command
+$ ruby driver.rb
+
 <h3> Requirements </h3>
 <ul>
   <li> Items can be candy, soda, snacks etc. </li>
