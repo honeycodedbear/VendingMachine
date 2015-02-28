@@ -60,6 +60,7 @@ class VendingMachine
     coord = coord.to_sym if coord.class == "".class
     #^^ to make sure it is a symbol not a string
     @user_debt ||= 0
+    return "That Slot doesn't exist" unless @slots[coord]
     if @slots[coord].depth > 0
       @queue.push coord
       return "#{@user_debt += @slots[coord].price}"
