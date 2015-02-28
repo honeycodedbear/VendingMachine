@@ -1,7 +1,7 @@
 require './slot'
 
 class VendingMachine
-  attr_accessor :slots, :item_count, :user_credit, :user_debt, :cash, :queue
+  attr_accessor :slots, :item_count, :items_sold, :user_credit, :user_debt, :cash, :queue
   def initialize(slots, starting_cash)
     @cash = starting_cash
     #Already using a hash to initialize the grid why not use that as my data structure
@@ -10,7 +10,9 @@ class VendingMachine
       @slots[key] = Slot.new(value)
     end
     @item_count = {} #no idea what the items are named so i will use a hash
+    @items_sold = {} #hash to store items sold
     @queue = [] #holds the order queue
+
   end
   def add_load(new_load)
     new_load.each do |key,value|
@@ -44,7 +46,11 @@ class VendingMachine
         @user_debt = 0
         result = []
         @queue.each do |ele|
-          result.push(@slots[ele].sellItem)
+          temp = @slots[ele].sellItem
+          result.push(temp)
+          item_count[temp] -= 1
+          items_sold[temp] ||= 0
+          items_sold[temp] += 1
         end
         @queue = []
         return [result, change]
@@ -67,5 +73,14 @@ class VendingMachine
     else
       return "Error Slot is empty! Try another one"
     end
+  end
+
+  def findItem(item)
+    result = {}
+    @slots.each do |key, value|
+      index = value.items.find_index(item)
+      result[key] = index if index #checks if it is nil
+    end
+    result
   end
 end
