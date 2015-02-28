@@ -7,7 +7,7 @@ Windows: <a href="http://railsinstaller.org/en">http://railsinstaller.org/en</a>
 <br>Mac: Should come pre installed
 <br>Linux: sudo apt-get install ruby
 or whatever package manager works on your distro
-<br>
+<br><br>
 Then navigate to the containing folder with the command <br>
 $ ruby driver.rb
 
