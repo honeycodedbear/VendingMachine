@@ -41,12 +41,12 @@ class VendingMachine
       change = @user_credit - @user_debt
       if change <= @cash
         @user_credit = 0
-        @user_debit = 0
+        @user_debt = 0
         result = []
         @queue.each do |ele|
           result.push(@slots[ele].sellItem)
         end
-
+        @queue = []
         return [result, change]
       else
         return "Error not enough change for transaction. Please consult admin"
@@ -60,7 +60,7 @@ class VendingMachine
     coord = coord.to_sym if coord.class == "".class
     #^^ to make sure it is a symbol not a string
     @user_debt ||= 0
-    return "That Slot doesn't exist" unless @slots[coord]
+    return "That slot doesn't exist! Please try another" unless @slots[coord]
     if @slots[coord].depth > 0
       @queue.push coord
       return "#{@user_debt += @slots[coord].price}"
