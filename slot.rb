@@ -2,8 +2,8 @@
 class Slot
   attr_accessor :items, :price
   def initialize(price)
-    @items = []
-    @price = price
+    @items = [] #an array that holds the String name of each 'item'
+    @price = price 
   end
   def depth
     @items.size
@@ -13,7 +13,7 @@ class Slot
     @items.push item
   end
   def sellItem
-    #this pops off the first item
+    #this pops off the first item and returns it
     @items.shift
   end
   def to_s #defining a new toString method so we can use it in the string Interpolation

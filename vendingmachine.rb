@@ -32,16 +32,16 @@ class VendingMachine
   end
 
   def insert_credit(new_credit)
-    @user_credit ||= 0.0
-    @user_credit += new_credit
+    @user_credit ||= 0
+    @user_credit += new_credit.to_i
   end
 
   def despense
     if @user_credit >= @user_debt
       change = @user_credit - @user_debt
       if change <= @cash
-        @user_credit = 0.0
-        @user_debit = 0.0
+        @user_credit = 0
+        @user_debit = 0
         result = []
         @queue.each do |ele|
           result.push(@slots[ele].sellItem)
@@ -59,12 +59,12 @@ class VendingMachine
   def selection(coord)
     coord = coord.to_sym if coord.class == "".class
     #^^ to make sure it is a symbol not a string
-    @user_debt ||= 0.0
+    @user_debt ||= 0
     if @slots[coord].depth > 0
       @queue.push coord
       return "#{@user_debt += @slots[coord].price}"
     else
-      return "Error Slot is empty!"
+      return "Error Slot is empty! Try another one"
     end
   end
 end

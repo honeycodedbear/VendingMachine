@@ -1,7 +1,7 @@
 require './vendingmachine'
 
-test_set_1 = {A1: 1.00, A2: 1.00, B1: 1.50, B2: 1.50}
-vm = VendingMachine.new(test_set_1, 20.00)
+test_set_1 = {A1: 1, A2: 1, B1: 2, B2: 2}
+vm = VendingMachine.new(test_set_1, 20)
 puts "#{vm}"
 
 first_load = {A1: ['Skittles', 'M&M', 'Skittles']}
@@ -15,7 +15,7 @@ puts "\n#{vm}"
 
 puts "#{vm.selection(:A1)}"
 puts "#{vm.selection(:A1)}"
-puts "#{vm.insert_credit(1.00)}"
+puts "#{vm.insert_credit(1)}"
 puts "#{vm.despense}"
-puts "#{vm.insert_credit(1.25)}"
+puts "#{vm.insert_credit(2)}"
 puts "#{vm.despense}"
